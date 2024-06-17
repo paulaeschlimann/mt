@@ -1,0 +1,203 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+  margin-top: 0;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
+
+.header,
+.footer,
+.search,
+.add,
+.filter,
+.today,
+.edit-todo,
+.list {
+  border: 1px solid black;
+  padding: 1em;
+  margin: 1em;
+}
+
+.header, .footer {
+  background-color: #eebaba;
+  color: black;
+}
+
+.search {
+  background-color: lightblue;
+}
+
+.add {
+  background-color: lightcoral;
+}
+
+.filter {
+  background-color: darkkhaki;
+}
+
+.list {
+  background-color: lightseagreen;
+}
+
+.today {
+  background-color: darkgray;
+}
+
+.edit-todo {
+  background-color: orange;
+}
+
+.react, .vue {
+  position: relative;
+}
+
+.react::before, .vue::before {
+  position: absolute;
+  text-align: right;
+  right: 2em;
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+.react::before {
+  content: "react"
+}
+
+.vue::before {
+  content: "vue"
+}
+
+.no-list-style {
+  list-style: none;
+}
+
+.filter-item {
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  color: black;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  cursor: pointer;
+}
+
+.active-filter {
+  border: 1px solid grey;
+  border-radius: 8px;
+  color: darkred;
+  background-color: #eebaba;
+  transition: border-color 0.25s;
+}
+
+input {
+  box-sizing: border-box;
+  padding: 1em;
+  font-size: 1em;
+  border: 1px solid darkgrey;
+  box-shadow: none;
+  width: 100%;
+  outline: none;
+}
+
+input:focus {
+    border-color: cornflowerblue;
+}
+
+.autocomplete-list {
+    width: 300px;
+    position: relative;
+    display: inline-block;
+}
+
+.autocomplete-items {
+    border-color: cornflowerblue;
+    position: absolute;
+    z-index: 99;
+    top: 100%;
+    left: 0;
+    right: 0;
+    border: 1px solid #d4d4d4;
+    border-bottom: none;
+    border-top: none;
+}
+
+.autocomplete-items > div {
+  border-bottom: 1px solid #d4d4d4;
+  padding: 10px;
+  cursor: pointer;
+  background-color: #fff;
+  color: black;
+}
+
+.autocomplete-items > div:last-child {
+  border-bottom: 1px solid cornflowerblue;
+  border-bottom-color: cornflowerblue;
+}

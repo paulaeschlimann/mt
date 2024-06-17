@@ -1,0 +1,35 @@
+variables:
+  NODE_VERSION: '20.11.1'
+  NODE_IMAGE_VERSION: '20'
+
+stages:          # List of stages for jobs, and their order of execution
+  - build
+  - deploy
+
+build-netlify-job:
+  stage: build
+  image: node:$NODE_IMAGE_VERSION
+  script:
+    - npm install
+    - npm run build
+  artifacts:
+    paths:
+      - dist/
+
+deploy-netlify-job:
+  stage: deploy
+  image: node:$NODE_IMAGE_VERSION
+  script:
+    - npm install netlify-cli -g
+    - netlify deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --dir ./dist
+  except:
+    - main
+
+deploy-netlify-prod-job:
+  stage: deploy
+  image: node:$NODE_IMAGE_VERSION
+  script:
+    - npm install netlify-cli -g
+    - netlify deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --dir ./dist --prod
+  only:
+    - main

@@ -1,0 +1,43 @@
+import { getPokemonList } from "../../lib/api";
+
+<div class="container">
+  <main>
+    <cart-items />
+    <await(getPokemonList) client-reorder>
+      <@placeholder>
+        <div>Loading</div>
+      </@placeholder>
+      <@then|pokemons|>
+        <div
+          class="grid-container"
+        >
+          <for|pokemon| of=pokemons>
+            <pokemon-card name=pokemon.name id=pokemon.id url=pokemon.url imageUrl=pokemon.imageUrl types=pokemon.types>
+              <cart-button id=pokemon.id name=pokemon.name />
+            </pokemon-card>
+          </for>
+        </div>
+      </@then>
+    </await>
+  </main>
+</div>
+style {
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    margin: auto;
+  }
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: clamp(1em, 2vw, 2em);
+    padding: 1em;
+    box-sizing: border-box;
+    width: 100%;
+  }
+  img.logo {
+    width: 12em;
+  }
+}

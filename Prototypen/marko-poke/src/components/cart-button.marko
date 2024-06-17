@@ -1,0 +1,46 @@
+import { addCartItem } from '../store'
+
+class {
+    onCreate(input) {
+        this.state = {
+            id: input.id,
+            name: input.name,
+        };
+    }
+
+    addItem(name) {
+        console.log(name)
+        addCartItem({
+            name: name, 
+            id: this.state.id
+        })
+    }
+}
+
+<button class="button" on-click("addItem", state.name)>
+    Add to cart
+</button>
+
+style {
+    .button {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+        transition-duration: 150ms;
+        line-height: 1.5;
+        font-weight: 500;
+        padding-top: 0.625rem;
+        padding-bottom: 0.5rem;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+        border: 2px solid rgb(21, 94, 117);
+        border-radius: 0.25rem;
+        background-color: transparent;
+    }
+
+    .button:hover {
+        color: #fff;
+        background-color: rgb(4, 59, 76);
+        border-color: rgb(21, 94, 117);
+    }
+}

@@ -1,0 +1,37 @@
+class {
+    onCreate() {
+        this.state = {
+            cartItems: [],
+        };
+    }
+
+    addToCart(name) {
+        this.state.cartItems = [...cartItems, name];
+    }
+
+    cartAdding(name) {
+        console.log(`add ${name} to cart`);
+    }
+
+    handleSave(name) {
+        console.log('handleSave was called')
+        console.log(`passed name: ${name}`)
+
+        this.state.cartItems = [...this.state.cartItems, name];
+
+        localStorage.setItem('cart', JSON.stringify(
+            [...this.state.cartItems, name]
+        ))
+    }
+}
+
+<div>Cart Items</div>
+<for|cartItem| of=state.cartItems>
+    <div>${cartItem}</div>
+</for>
+
+<context cart="EMPTY" on-save("handleSave")>
+    <div>
+        <${input.renderBody}/>
+    </div>
+</context>

@@ -1,0 +1,289 @@
+import { cartItemsCount, cartItemsSum, loadCart, removeCartItem, updateCartItem } from '../store'
+
+class {
+    onCreate() {
+        this.state = {
+            cart: null,
+        };
+    }
+
+    onMount() {
+        this.state.cart = loadCart()
+    }
+
+    increaseQuantity(cartItem) {
+        const newQuantity = cartItem.quantity + 1;
+        const item = { ...cartItem, quantity: newQuantity };
+    
+        this.state.cart = updateCartItem(item);
+    }
+
+    decreaseQuantity(cartItem) {
+        const newQuantity = cartItem.quantity - 1;
+
+        if (newQuantity < 1) {
+            this.state.cart = removeCartItem(cartItem)
+        } else {
+            const item = { ...cartItem, quantity: newQuantity };
+            this.state.cart = updateCartItem(item);
+        }        
+    }
+
+    removeFromCart(cartItem) {
+        this.state.cart = removeCartItem(cartItem)
+    }
+
+    itemSum() {
+        if (this.state.cart?.length > 0) {
+            return this.state.cart.reduce((acc, v) => acc + v.quantity, 0)
+        } else {
+            return 0
+        }
+    }
+}
+
+<section class="section-cart-summary">
+    <div class="container-cart-summary">
+        <span class="cart-summary">
+            ${component.itemSum()}  ${component.itemSum() === 1 ? "item" : "items"}
+        </span>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="cart-container">
+            <main class="cart">
+                <if(component.itemSum() > 0)>
+                    <for|cartItem| of=state.cart>
+                        <article class="cart-item-container">
+                            <div class="cart-item">
+                                <div class="item-details-container">
+                                    <p class="item-details">
+                                        ${cartItem.name}
+                                    </p>
+                                </div>
+                                <div class="quantity-container">
+                                    <div class="quantity-controls">
+                                        <button
+                                            data-action="decrement"
+                                            class="quantity-button button-left"
+                                            on-click("decreaseQuantity", cartItem)
+                                        >
+                                            <span class="cart-button-label">
+                                                −
+                                            </span>
+                                        </button>
+                                        <input
+                                            type="number"
+                                            class="quantity"
+                                            name="custom-input-number"
+                                            value=cartItem.quantity
+                                            readOnly
+                                        />
+                                        <button
+                                            data-action="increment"
+                                            class="quantity-button button-right"
+                                            on-click("increaseQuantity", cartItem)
+                                        >
+                                            <span class="cart-button-label">
+                                                +
+                                            </span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="button-container">
+                                    <div class="button-remove-container">
+                                        <a
+                                            class="button-remove"
+                                            on-click("removeFromCart", cartItem)
+                                        >
+                                            Remove
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                        <hr class="item-h-line" />
+                    </for>
+                </if>
+                <else>
+                    <div>
+                        Your cart is empty!
+                    </div>
+                </else>
+            </main>
+        </div>
+    </div>
+</section>
+
+<style>
+    .section {
+        padding-top: 2.5rem;
+        padding-bottom: 2.5rem;
+    }
+
+    .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+        max-width: 1280px;
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
+    }
+
+    .cart-container {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+    }
+
+    .cart {
+        width: 75%;
+        flex: 1 1 auto;
+    }
+
+    .cart-item-container {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+        /*padding: 1.25rem;*/
+        border: 1px solid rgb(229, 231, 235);
+        border-radius: .25rem;
+        /*margin-bottom: 1.25rem;*/
+    }
+
+    .cart-item {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        align-items: center;
+        gap: 1.25rem;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .item-details-container {
+        width: 25%
+    }
+
+    .item-details {
+        margin: 0
+    }
+
+    .quantity-container {
+        width: 8rem;
+    }
+    
+    .quantity-controls {
+        background-color: transparent;
+        border-radius: .5rem;
+        display: flex;
+        flex-direction: row;   
+        width: 100%;
+        height: 2.5rem;
+        margin-top: .25rem;
+        position: relative;
+    }
+
+    .quantity-controls > input, .quantity-controls > button {
+        border: 0px solid white;
+    }
+
+    .quantity-controls > input {
+        appearance: textfield;
+        -moz-appearance:textfield;
+    }
+
+    .quantity {
+        display: flex;
+        font-weight: 600;
+        text-align: right;
+        background-color: rgb(209, 213, 219);
+        align-items: center;
+        width: 100%;
+    }
+
+    .quantity-button {
+        color: rgb(75, 85, 99);
+        background-color: rgb(209, 213, 219);
+        cursor: pointer;
+        width: 5rem;
+        height: 100%;
+    }
+
+    .button-left {
+        border-top-left-radius: .25rem;
+        border-bottom-left-radius: .25rem;
+    }
+
+    .button-right {
+        border-top-right-radius: .25rem;
+        border-bottom-right-radius: .25rem;
+    }
+
+    .quantity-button:hover {
+        color: rgb(55, 65, 81);
+        background-color: rgb(156, 163, 175);
+    }
+
+    .cart-button-label {
+        margin: auto;
+    }
+
+    .button-container {
+        flex: 1 1 auto;
+    }
+
+    .button-remove-container {
+        float: right;
+    }
+
+    .button-remove {
+        color: rgb(220, 38, 38);
+        padding-top: .5rem;
+        padding-bottom: .5rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        border: 1px solid rgb(229, 231, 235);
+        border-radius: .375rem;
+        cursor: pointer;
+        display: inline-block;
+        transition-duration: 150ms;
+    }
+
+    .button-remove:hover {
+        color: #fff;
+        background-color: rgb(220, 38, 38);
+        border-color: rgb(136, 1, 1);
+    }
+
+    *::after, *::before {
+        border: 0 solid #e5e7eb;
+    }
+
+    .item-h-line {
+        border-color: rgb(175, 156, 156);
+    }
+
+    .section-cart-summary {
+        padding-top: 1.75rem;
+        padding-bottom: 1.75rem;
+        background-color: rgb(219, 234, 254);
+    }
+
+    .container-cart-summary {
+        padding-left: 1rem;
+        padding-right: 1rem;
+        max-width: 1280px;
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
+    }
+
+    .cart-summary {
+        font-weight: 600;
+        font-size: 1.875rem;
+        line-height: 2.25rem;
+        margin-bottom: .5rem;
+    }
+</style>

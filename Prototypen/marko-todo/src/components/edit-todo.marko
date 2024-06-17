@@ -1,0 +1,40 @@
+class {
+
+    onCreate(input) {
+        this.state = {
+            id: input.todo.id,
+            name: input.todo.name,
+            category: input.todo.category,
+        };
+    }
+
+    handleNameInput(event) {
+        this.state.name = event.target.value
+    }
+
+    handleCategoryInput(event) {
+        this.state.category = event.target.value
+    }
+
+    save() {
+        this.emit("todo-save", {
+            id: this.state.id,
+            name: this.state.name,
+            category: this.state.category,
+        })
+    }
+
+    handleCancel() {
+        this.emit("todo-cancel-editing")
+    }
+}
+
+$ let isInputInvalid = !(state.name.trim().length > 0 && state.category.trim().length > 0)
+
+<div>
+    <input type="text" name="name" value=state.name on-input("handleNameInput")/>
+    <input type="text" name="category" value=state.category on-input("handleCategoryInput")/>
+
+    <button on-click("save") disabled=(isInputInvalid)>Save</button>
+    <button on-click("handleCancel")>Cancel</button>
+</div>

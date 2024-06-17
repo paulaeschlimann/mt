@@ -1,0 +1,41 @@
+variables:
+  NODE_VERSION: '20.11.1'
+  NODE_IMAGE_VERSION: '20'
+
+stages:
+  - build
+  - deploy
+
+build-job:
+  stage: build
+  image: node:$NODE_IMAGE_VERSION
+  script:
+    - npm install
+    - npm run build
+    - npm install netlify-cli -g
+    - netlify build
+  artifacts:
+    paths:
+      - .netlify/
+      - .next/
+
+deploy-job:
+  stage: deploy
+  image: node:$NODE_IMAGE_VERSION
+  script:
+    - ls -latr
+    - npm install
+    - npm install netlify-cli -g
+    - netlify deploy --build --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN
+  except:
+    - main
+
+deploy-prod-job:
+  stage: deploy
+  image: node:$NODE_IMAGE_VERSION
+  script:
+    - npm install
+    - npm install netlify-cli -g
+    - netlify deploy --build --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --prod
+  only:
+    - main

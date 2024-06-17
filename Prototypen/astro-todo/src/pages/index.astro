@@ -1,0 +1,72 @@
+---
+import { Today } from '../components/Today.jsx'
+import TodoList from '../components/TodoList.vue'
+import SearchTodo from '../components/SearchTodo.vue'
+import { AddTodo } from '../components/AddTodo.jsx'
+import { Filter } from '../components/Filter.jsx'
+import { EditTodo } from '../components/EditTodo.jsx'
+
+import '../global.css';
+
+const todos = [
+	{ id: '6848d44a-29d2-4edb-9226-d00bdd9b9bcc', name: 'Todo 1', category: 'Cat 1', completed: false },
+	{ id: '534b3dd1-f144-4982-a2df-218c095282e4', name: 'Todo 2', category: 'Cat 2', completed: true },
+	{ id: '11991c60-b76d-4876-af7d-6bd9199e1f9b', name: 'Todo 3', category: 'Cat 3', completed: true }
+]
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Astro</title>
+	</head>
+	<body>
+		<div>
+			<div class="header">
+				<h1>Astro Todo-App</h1>
+			</div>
+			<div class="filter react">
+				<h1>Filtering</h1>
+				<Filter client:load />
+			</div>
+
+			<div class="search vue">
+				<h1>Searching</h1>
+				<SearchTodo client:load />
+			</div>
+
+			<div class="today react">
+				<h1>Counting</h1>
+				<Today client:load />
+			</div>
+
+			<div class="list vue">
+				<h1>Listing</h1>
+				<TodoList client:load />
+			</div>
+
+			<div class="add react">
+				<h1>Adding</h1>
+				<AddTodo client:visible />
+			</div>
+
+			<div class="edit-todo react">
+				<h1>Editing</h1>
+				<EditTodo client:load />
+			</div>
+
+			<div class="footer">
+				This prototype was created to showcase the capabilities of the <i>Island Architecture</i>.
+				<br>
+				Please visit <a href="https://www.patterns.dev/vanilla/islands-architecture/" target="_blank">https://www.patterns.dev/vanilla/islands-architecture</a> for additional information.
+			</div>
+		</div>
+	</body>
+</html>
+
+<script define:vars={{ todos }}>
+	console.log(todos)
+</script>

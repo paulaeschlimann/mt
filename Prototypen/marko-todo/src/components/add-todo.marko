@@ -1,0 +1,42 @@
+class {
+
+    onCreate() {
+        this.state = {
+            name: "",
+            category: "",
+            date: "",
+        };
+    }
+
+    onMount() {
+        document.addEventListener("timestampEvent", (event) => {
+            const { name, someNumber, date } = event.detail
+            this.state.date = date
+        })
+    }
+
+    handleNameInput(event) {
+        this.state.name = event.target.value
+    }
+
+    handleCategoryInput(event) {
+        this.state.category = event.target.value
+    }
+
+    add() {
+        this.emit("todo-add", {
+            name: this.state.name,
+            category: this.state.category
+        })
+
+        this.state.name = ""
+        this.state.category = ""
+    }
+}
+
+$ let isInputInvalid = !(state.name.trim().length > 0 && state.category.trim().length > 0)
+
+<input type="text" name="name" value=state.name on-input("handleNameInput")/>
+<input type="text" name="category" value=state.category on-input("handleCategoryInput")/>
+
+<button on-click("add") disabled=(isInputInvalid)>Add</button>

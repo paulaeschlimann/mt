@@ -1,0 +1,136 @@
+class {
+
+    onCreate() {
+        this.state = {
+            todos: [
+                { id: '6848d44a-29d2-4edb-9226-d00bdd9b9bcc', name: 'Todo 1 in app', category: 'Cat 1', completed: false },
+                { id: '534b3dd1-f144-4982-a2df-218c095282e4', name: 'Todo 2 in app', category: 'Cat 2', completed: true },
+                { id: '11991c60-b76d-4876-af7d-6bd9199e1f9b', name: 'Todo 3 in app', category: 'Cat 3', completed: true }
+            ],
+            editingTodo: null,
+            filteredCategory: ''
+        };
+    }
+
+    clear() {
+        this.state.todos = []
+    }
+
+    editTodo(todoId) {
+        this.state.editingTodo = this.state.todos.find(todo => todo.id === todoId)
+    }
+
+    deleteTodo(todoId) {
+        this.state.todos = this.state.todos.filter(todo => todo.id !== todoId)
+    }
+
+    toggleComplete(todoId, completed) {
+        this.state.todos = this.state.todos.map(todo => {
+            if (todo.id === todoId) {
+                return {...todo, completed}
+            }
+
+            return todo
+        })
+    }
+
+    addTodo(todo) {
+        this.state.todos = [...this.state.todos, { ...todo, id: crypto.randomUUID() }]
+    }
+
+    cancelEditing() {
+        this.state.editingTodo = null
+    }
+
+    saveTodo(updatedTodo) {
+        this.state.todos = this.state.todos.map(todo => {
+            if (todo.id === updatedTodo.id) {
+                return { ...todo, ...updatedTodo }
+            } else {
+                return todo
+            }
+        })
+
+        this.state.editingTodo = null
+    }
+
+    toggleFilterCategory(category) {
+        if (this.state.filteredCategory === category) {
+            this.state.filteredCategory = ''
+        } else {
+            this.state.filteredCategory = category
+        }
+    }
+
+    getFilteredTodos() {
+        if (this.state.filteredCategory) {
+            return this.state.todos.filter(todo => todo.category === this.state.filteredCategory)
+        } else {
+            return this.state.todos
+        }
+    }
+
+    removeFilter() {
+        this.state.filteredCategory = ''
+    }
+}
+
+$ let todosWithFilteredCategoryExist = state.filteredCategory ? state.todos.some(todo => todo.category === state.filteredCategory) : true
+
+<section>
+    <div class="header">
+        <h1>Marko Todo-App</h1>
+    </div>
+
+    <div class="filter marko">
+        <h1>Filtering</h1>
+        <div class="flex-container">
+            <div class="flex-b-100 text-right">
+                 Current filter:
+            </div>
+            <div class="flex-b-100 text-left">
+                ${state.filteredCategory} <button on-click("removeFilter") style=`visibility: ${state.filteredCategory ? 'display' : 'hidden'}`>x</button>
+            </div>
+        </div>
+        <filter todos=state.todos filteredCategory=state.filteredCategory on-toggle-filter-category("toggleFilterCategory") />
+    </div>
+
+    <div class="search marko">
+        <h1>Searching</h1>
+        
+    </div>
+
+    <div class="today marko">
+        <h1>Counting</h1>
+        <today todos=state.todos />
+    </div>
+
+    <div class="list marko">
+        <h1>Listing</h1>
+        <ul class="no-list-style">
+            <for|todo| of=component.getFilteredTodos()>
+                <li>
+                    <todo-item t={todo} id=todo.id name=todo.name category=todo.category completed=todo.completed on-todo-toggle-complete("toggleComplete") on-todo-edit("editTodo") on-todo-delete("deleteTodo") />
+                </li>
+            </for>
+        </ul>
+    </div>
+
+    <div class="add marko">
+        <h1>Adding</h1>
+        <add-todo on-todo-add("addTodo") />
+    </div>
+
+    <div class="edit-todo marko">
+        <h1>Editing</h1>
+        <if(state.editingTodo)>
+            <edit-todo key=state.editingTodo.id todo=state.editingTodo on-todo-cancel-editing("cancelEditing") on-todo-save("saveTodo") />
+        </if>
+    </div>
+
+    <div class="footer">
+        This prototype was created to showcase the capabilities of the <i>Island Architecture</i>.
+        <br>
+        Please visit <a href="https://www.patterns.dev/vanilla/islands-architecture/" target="_blank">https://www.patterns.dev/vanilla/islands-architecture</a> for additional information.
+    </div>
+</section>

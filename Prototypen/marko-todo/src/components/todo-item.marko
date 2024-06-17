@@ -1,0 +1,27 @@
+class {
+
+    handleEdit(todoId) {
+        this.emit("todo-edit", todoId)
+    }
+
+    handleDelete(todoId) {
+        this.emit("todo-delete", todoId)
+    }
+
+    handleComplete(todoId, event) {
+        this.emit("todo-toggle-complete", todoId, event.target.checked)
+    }
+}
+
+<label>
+    ${input.name} (${input.category})
+</label>
+<div>
+    <input type="checkbox" checked=input.completed on-change("handleComplete", input.id) />
+    <button type="button" on-click("handleEdit", input.id)>
+        Edit
+    </button>
+    <button type="button" on-click("handleDelete", input.id)>
+        Delete
+    </button>
+</div>

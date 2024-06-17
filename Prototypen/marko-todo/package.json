@@ -1,0 +1,21 @@
+{
+  "name": "marko-todo",
+  "description": "The default Marko starter app",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "@marko/run-adapter-netlify": "^0.1.9",
+    "marko": "^5.33.5"
+  },
+  "devDependencies": {
+    "@marko/run": "^0.4.4"
+  },
+  "private": true,
+  "scripts": {
+    "dev": "marko-run",
+    "build": "marko-run build",
+    "build:netlify": "netlify build",
+    "preview": "marko-run preview",
+    "start": "node --enable-source-maps ./dist/index.mjs"
+  }
+}

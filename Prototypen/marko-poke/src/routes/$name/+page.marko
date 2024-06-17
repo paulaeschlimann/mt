@@ -1,0 +1,35 @@
+import { getPokemon } from "../../lib/api";
+
+<div class="container">
+  <main>
+    <await(getPokemon($global.params.name.toLowerCase())) client-reorder>
+      <@placeholder>
+        <div>Loading</div>
+      </@placeholder>
+      <@then|pokemon|>
+        <h1>${pokemon.name}</h1>
+        <p>${pokemon.height}</p>
+        <p>${pokemon.weight}</p>
+        <img src=`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png` />
+
+        <for|stat| of=pokemon.stats>
+            <div>
+                ${stat.stat.name}: ${stat.base_stat}
+            </div>
+        </for>
+      </@then>
+    </await>
+  </main>
+</div>
+
+style {
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1em;
+    box-sizing: border-box;
+    width: 100%;
+  }
+}

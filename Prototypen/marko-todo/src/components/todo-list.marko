@@ -1,0 +1,79 @@
+class {
+
+    onCreate() {
+        this.state = {
+            todos: [
+                { id: '6848d44a-29d2-4edb-9226-d00bdd9b9bcc', name: 'Todo 1 in todo-list', category: 'Cat 1', completed: false },
+                { id: '534b3dd1-f144-4982-a2df-218c095282e4', name: 'Todo 2 in todo-list', category: 'Cat 2', completed: true },
+                { id: '11991c60-b76d-4876-af7d-6bd9199e1f9b', name: 'Todo 3 in todo-list', category: 'Cat 3', completed: true }
+            ]
+        };
+    }
+
+    clear() {
+        this.state.todos = []
+    }
+
+    editTodo(todoId) {
+        console.log("edit " + todoId)
+        this.emit("todo-edit", todoId)
+    }
+
+    consoleOutput(todoId) {
+        console.log("delete " + todoId)
+        //console.log(Object.keys(todoId))
+        //console.log(todoId.todoId)
+    }
+}
+
+<ul>
+    <for|todo| of=state.todos>
+        <li>${todo.name} (${todo.category})</li>
+    </for>
+</ul>
+
+<div>
+    Passed todos
+</div>
+
+<ul>
+    <for|todo| of=input.todos>
+        <li>
+            <label>
+                ${todo.name} (${todo.category})
+            </label>
+            <todo-item t={todo} message="hi" obj={ hello: 'world' } id=todo.id name=todo.name category=todo.category on-todo-edit("editTodo") on-todo-delete("consoleOutput") />
+            <!--<div>
+                <button type="button" on-click("editTodo", todo.id)>
+                    Edit
+                </button>
+                <button type="button" on-click(input.deleteTodo)>
+                    Delete
+                </button>
+            </div>-->
+        </li>
+    </for>
+</ul>
+
+<todo-item obj={ prop1: "value1" } />
+
+<div>The current count is ${state.todos.length}</div>
+
+<button on-click("clear")>Clear all</button>
+
+<if(state.todos.length > 0)>
+    <div>There is something to do!</div>
+</if>
+<else>
+    <div>There is nothing to do!</div>
+</else>
+
+<div>
+    Passed todos
+</div>
+<if(input.todos)>
+    <div>There is something to do!</div>
+</if>
+<else>
+    <div>There is nothing to do!</div>
+</else>
