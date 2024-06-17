@@ -25,3 +25,7 @@ Pages map to the directory structure. You can add additional pages by creating f
 
 - `npm run build` produces output in directory `netlify`.
 - `netlify deploy` or `netlify deploy --build` deploy app. Depending on configurations set in *netlify.toml*, the publish directory's content gets published to Netlify too.
+
+## Continuous Integration / Continuous Deployment
+
+This repository is configured for continuous integration and continuous deployment. Commits pushed to the `main` branch are deployed to the production domain available at https://marko-poke.mt.paulaeschlimann.com/. Commits to non-`main`-branches are deployed to preview domains.
