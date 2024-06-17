@@ -43,4 +43,4 @@ All commands are run from the root of the project, from a terminal:
 
 ## Continuous Integration / Continuous Deployment
 
-This repository is configured for continuous integration and continuous deployment. Commits pushed to the `main` branch are deployed to the production domain available at https://marko-poke.mt.paulaeschlimann.com/. Commits to non-`main`-branches are deployed to preview domains.
+This repository is configured for continuous integration and continuous deployment. Commits pushed to the `main` branch are deployed to the production domain available at https://marko-todo.mt.paulaeschlimann.com/. Commits to non-`main`-branches are deployed to preview domains.
