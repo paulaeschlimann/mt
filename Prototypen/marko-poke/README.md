@@ -1,27 +1,46 @@
-# Thanks for checking out Marko
+# Marko Poke
 
-# Installation
+This project is based on Marko. It uses components created by the frameworks Marko only. Marko is based on compiler which decides which component is used on the server and for which JavaScript code must be sent to the browser. State across components is shared by custom events and stored in `localStorage`.
+This project showcases the use of Marko for sites that focus on displaying content.
 
+## Requirements
+
+This prototype was created with Node.js v20.11.1.
+
+## Getting started
+
+- Clone this repository
+- Install all required dependencies by `npm install`
+- Run project in dev mode by `npm run dev`
+
+## 🚀 Project Structure
+
+The Marko project uses directory-based routes.
+
+```text
+/
+├── src/
+│   ├── components/
+│   │   └── cart-button.marko
+│   └── routes/
+│       ├── _index
+│       │   └── +page.marko
+│       └── cart
+│           └── +page.marko
+└── package.json
 ```
-npx @marko/create marko-app --template basic
-cd marko-app
-npm install
-npm run dev
-```
 
-## Overview
+## 👷🏼 Commands
 
-This project is powered by [@marko/run](https://github.com/marko-js/run).
+All commands are run from the root of the project, from a terminal:
 
-- Run `npm run dev` to start the development server
-- Run `npm run build` to build a production-ready node.js server
-- Run `npm run preview` to run the production server
+| Command                   | Action                                           |
+| :------------------------ | :----------------------------------------------- |
+| `npm install`             | Installs dependencies                            |
+| `npm run dev`             | Starts local dev server at `localhost:3000`      |
+| `npm run build`           | Build your production site to `./dist/`          |
+| `npm run preview`         | Preview your build locally, before deploying     |                |
 
-## Adding Pages
+## Continuous Integration / Continuous Deployment
 
-Pages map to the directory structure. You can add additional pages by creating files/directories under `src/routes` with `+page.marko` files.  Learn more in the [`@marko/run` docs](https://github.com/marko-js/run/#file-based-routing).
-
-# Deployment
-
-- `npm run build` produces output in directory `netlify`.
-- `netlify deploy` or `netlify deploy --build` deploy app. Depending on configurations set in *netlify.toml*, the publish directory's content gets published to Netlify too.
+This repository is configured for continuous integration and continuous deployment. Commits pushed to the `main` branch are deployed to the production domain available at https://marko-poke.mt.paulaeschlimann.com. Commits to non-`main`-branches are deployed to preview domains.

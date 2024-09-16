@@ -1,46 +1,43 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Next.js Poke
 
-## Getting Started
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app). It contains server (React Server Components) and client components. Client components share data by using a context.
 
-First, run the development server:
+## Requirements
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+This prototype was created with Node.js v20.11.1.
+
+## Getting started
+
+- Clone this repository
+- Install all required dependencies by `npm install`
+- Run project in dev mode by `npm run dev`
+
+## 🚀 Project Structure
+
+Inside the Next.js project, you'll see the following folders and files:
+
+```text
+/
+├── public/
+├── app/
+│   ├── components/
+│   │   └── cart-button.jsx
+│   ├── cart/
+│   │   └── page.jsx
+│   └── page.jsx
+└── package.json
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🧞 Commands
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+All commands are run from the root of the project, from a terminal:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+| Command                   | Action                                           |
+| :------------------------ | :----------------------------------------------- |
+| `npm install`             | Installs dependencies                            |
+| `npm run dev`             | Starts local dev server at `localhost:3000`      |
+| `npm run build`           | Build your production site to `./next/`          |
 
-## Learn More
+## Continuous Integration / Continuous Deployment
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-
-## Deploy on Netlify
-
-- Build project using `npm run build`.
-- Build project using `netlify build` which uses the file `netlify.toml` in the project root directory
-- [obsolete] Create directory `_next` in publish directory for all static content by using `mkdir -p build/_next`
-- [obsolete] Copy static files to `_next` directory by using ...
-  - [obsolete] `cp -r build/static/  build/_next/static`
-  - `cp -r public/* build/`
-- Deploy by using `netlify deploy`
+This repository is configured for continuous integration and continuous deployment. Commits pushed to the `main` branch are deployed to the production domain available at https://next-poke.mt.paulaeschlimann.com. Commits to non-`main`-branches are deployed to preview domains.
