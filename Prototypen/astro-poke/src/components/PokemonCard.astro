@@ -1,6 +1,5 @@
 ---
-import { CartButton } from '../components/cart-button.js';
-import { CartButtonLit } from '../components/CartButtonLit'
+import { CartButton } from './CartButton';
 
 interface Props {
 	id: number;
@@ -15,22 +14,20 @@ const { id, name, imageUrl, types } = Astro.props;
 ---
 
 <article class="article-item">
-	<a href={name} class="article-link" aria-label={name} />
+	<a href=`pokemon/${name}` class="article-link" aria-label={name} />
 	<h2 class="article-heading">
 		{name.charAt(0).toUpperCase() + name.slice(1)}
 	</h2>
 	<div class="article-image">
-		<img src={imageUrl} alt={name}>
+		<img src={imageUrl} alt={name} loading="lazy">
 	</div>
 	<div class="details-1">
 		{types.map((type) => (
-			<div>
-				{type.name}
-			</div>
+			<div>{type.name}</div>
 		))}
 	</div>
 	<div class="action-buttons">
-		<CartButtonLit {...{ itemId: id, name: name }} client:load />
+		<CartButton {...{ itemId: id, name: name }} client:load />
 	</div>
 </article>
 	
@@ -76,7 +73,6 @@ const { id, name, imageUrl, types } = Astro.props;
 	}
 
 	.article-image img {
-		aspect-ratio: auto 500 / 300;
 		width: 100%;
 		height: auto;
 	}

@@ -9,14 +9,7 @@ class {
         this.state.cartItems = [...cartItems, name];
     }
 
-    cartAdding(name) {
-        console.log(`add ${name} to cart`);
-    }
-
     handleSave(name) {
-        console.log('handleSave was called')
-        console.log(`passed name: ${name}`)
-
         this.state.cartItems = [...this.state.cartItems, name];
 
         localStorage.setItem('cart', JSON.stringify(

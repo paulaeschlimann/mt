@@ -1,16 +1,14 @@
 <article key=input.id class="article-item">
-    <a href=input.name.toLowerCase() class="article-link" aria-label=input.name/>
+    <a href=`pokemon/${input.name.toLowerCase()}` class="article-link" aria-label=input.name/>
     <h2 class="article-heading">
         ${input.name.charAt(0).toUpperCase() + input.name.slice(1)}
     </h2>
     <div class="article-image">
-        <img src=input.imageUrl alt=input.name>
+        <img src=input.imageUrl alt=input.name loading="lazy">
     </div>
     <div class="details-1">
         <for|type| of=input.types>
-            <div
-                key=type.name
-            >
+            <div key=type.name>
                 ${type.name}
             </div>
         </for>

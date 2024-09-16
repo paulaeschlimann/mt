@@ -1,0 +1,131 @@
+import { getPokemon } from "../../../data/data-fetch";
+
+<div class="container">
+  <main>
+    <await(getPokemon($global.params.pokemonName.toLowerCase()))>
+      <@placeholder>
+        <div>Loading</div>
+      </@placeholder>
+      <@then|pokemon|>
+        <div class="pokemon-info">
+            <h1>
+                ${pokemon.name.charAt(0).toUpperCase()}${pokemon.name.slice(1)} #${pokemon.id}
+            </h1>
+
+            <img src=`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png` loading="lazy" />
+        </div>
+
+        <div class="types-container">
+            <for|type| of=pokemon.types>
+                <div class="stat-item-property">
+                    ${type.type.name.charAt(0).toUpperCase() +type.type.name.slice(1)}
+                </div>
+            </for>
+        </div>
+
+        <div class="stat-item-property">
+            <div>Height</div>
+            <div>${pokemon.height}</div>
+        </div>
+        <hr class="item-h-line" />
+
+        <div class="stat-item-property">
+            <div>Weight</div>
+            <div>${pokemon.weight}</div>
+        </div>
+        <hr class="item-h-line" />
+
+        <div class="stat-container">
+            <for|stat| of=pokemon.stats>
+                <div class="stat-item-container">
+                    <div class="stat-item">
+                        <div class="stat-item-property">
+                            <div>${stat.stat.name}</div>
+                            <div>${stat.base_stat}</div>
+                        </div>
+                        <progress class="stat-indicator" value=stat.base_stat max="100" />
+                    </div>
+                </div>
+                <hr class="item-h-line" />
+            </for>
+        </div>
+        <div class="cart-button">
+            <cart-button id=pokemon.id name=pokemon.name />
+        </div>
+      </@then>
+    </await>
+  </main>
+</div>
+
+style {
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 1em;
+        box-sizing: border-box;
+        width: 100%;
+    }
+    .pokemon-info {
+        text-align: center;
+    }
+    .types-container {
+		display: flex;
+		justify-content: center;
+		column-gap: 0.5rem;
+    }
+    .types-container div {
+		padding: 0.5rem;
+		border: 2px solid rgb(75, 85, 99);
+		border-radius: 0.375rem;
+		font-style: normal;
+		font-weight: 500;
+		font-size: 0.75rem;
+	}
+    .stat-container {
+        display: flex;
+        flex-direction: column;
+    }
+    .types-container,
+    .stat-container {
+        margin-bottom: 3rem;
+    }
+    .stat-item-container {
+        display: flex;
+        align-items: stretch;
+    }
+    .stat-item {
+        width: 100%;
+    }
+    .stat-item-property {
+		margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .stat-indicator {
+        width: 100%;
+    }
+    progress[value] {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+    }
+    progress[value]::-webkit-progress-bar {
+        background-color: lightgray;
+    }
+    progress::-webkit-progress-value {
+        background-color: darkblue;
+    }
+    progress[value]::-moz-progress-bar {
+        background-color: darkblue;
+    }
+    .item-h-line {
+        border-color: lightgrey;
+        width: 100%;
+    }
+    .cart-button {
+        text-align: center;
+    }
+}

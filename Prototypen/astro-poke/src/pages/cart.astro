@@ -1,67 +1,59 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import CartLit from '../components/CartLit';
-
-
-/*const dataEnhanced = data.results.map((obj : any) => {
-    const withoutTrailingSlash = obj.url.slice(0, -1)
-    const pokemonNumber = withoutTrailingSlash.substring(withoutTrailingSlash.lastIndexOf('/')+1)
-    obj.imageUrl = `${POKEMON_IMAGE_URL}${pokemonNumber}.png`
-    return obj
-})*/
-
+import ShoppingCart from '../components/ShoppingCart'
+import CartCounter from '../components/CartCounter'
 ---
 
-<Layout title="Welcome to Astro.">
+<Layout title="Cart">
 	<div class="container">
-		<main>
-
-
-			<CartLit client:only="lit" />
-
-			<div class="grid-container">
+		<section class="section-cart-summary">
+			<div class="container-cart-summary">
+				<span class="cart-summary">
+					<CartCounter {...{ includeText: true }} client:load />
+				</span>
 			</div>
-		</main>
+		</section>
+		<div class="cart-container">
+			<main class="cart">
+				<ShoppingCart client:load />
+			</main>
+		</div>
 	</div>
 </Layout>
 
 <style>
 	.container {
+		max-width: 1280px;
+		margin-left: auto;
+		margin-right: auto;
+		padding: 1rem;
+	}
+	.cart-container {
 		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		font-size: clamp(1em, 2vw, 2em);
-		padding: 1em;
-		box-sizing: border-box;
+		flex-direction: row;
+		gap: 1rem;
+	}
+	.cart {
+		width: 75%;
+    	flex: 1 1 auto;
+	}
+	.section-cart-summary {
+		padding-top: 1.75rem;
+		padding-bottom: 1.75rem;
+		background-color: rgb(219, 234, 254);
+	}
+	.container-cart-summary {
+		padding-left: 1rem;
+		padding-right: 1rem;
+		max-width: 1280px;
+		margin-left: auto;
+		margin-right: auto;
 		width: 100%;
 	}
-	.astro-a {
-		position: absolute;
-		top: -32px;
-		left: 50%;
-		transform: translatex(-50%);
-		width: 220px;
-		height: auto;
-		z-index: -1;
+	.cart-summary {
+		font-weight: 600;
+		font-size: 1.875rem;
+		line-height: 2.25rem;
+		margin-bottom: .5rem;
 	}
-	h1 {
-		font-size: 4rem;
-		font-weight: 700;
-		line-height: 1;
-		text-align: center;
-		margin-bottom: 1em;
-	}
-	.text-gradient {
-		background-image: var(--accent-gradient);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-size: 400%;
-		background-position: 0%;
-	}
-	.grid-container {
-		display: grid;
-		grid-template-columns: repeat(4, minmax(0, 1fr));
-		margin: auto; 
-  	}
 </style>

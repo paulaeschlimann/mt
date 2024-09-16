@@ -1,11 +1,9 @@
 export let cartItems = null
 
 export const addCartItem = (itemToAdd)  => {
-    console.log(`add to cart ${itemToAdd.name}`)
     let cartItems = loadCart()
 
     const existingItem = cartItems.find(item => item.id === itemToAdd.id)
-    console.log(existingItem)
 
     if (existingItem) {
         cartItems = cartItems.map(item => {
@@ -51,9 +49,6 @@ export const removeCartItem = (itemToRemove) => {
 
     const remainingItems = cartItems.filter(item => item.id !== itemToRemove.id)
 
-    console.log("remainingItems")
-    console.log(remainingItems)
-
     saveCart(remainingItems)
 
     return remainingItems
@@ -92,6 +87,5 @@ export const cartItemsCount = () => {
 
 export const cartItemsSum = () => {
     const cart = loadCart()
-    console.log(cart?.length ? cart.reduce((acc, v) => acc + v.quantity, 0) : 0)
     return cart?.length ? cart.reduce((acc, v) => acc + v.quantity, 0) : 0
 }

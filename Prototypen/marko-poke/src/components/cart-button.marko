@@ -9,7 +9,6 @@ class {
     }
 
     addItem(name) {
-        console.log(name)
         addCartItem({
             name: name, 
             id: this.state.id
@@ -18,7 +17,7 @@ class {
 }
 
 <button class="button" on-click("addItem", state.name)>
-    Add to cart
+    Add ${state.name} to cart
 </button>
 
 style {

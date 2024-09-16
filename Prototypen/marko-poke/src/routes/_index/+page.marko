@@ -1,29 +1,60 @@
-<div.container>
-  <header>
-    <img.logo src="./logo.svg" alt="Marko"/>
-  </header>
+import { getPokemonList } from "../../data/data-fetch";
+
+<div class="container">
   <main>
-    <p>Edit <code>./src/routes/_index/+page.marko</code> and save to reload.</p>
-    <a href="https://markojs.com/docs/getting-started">
-      Learn Marko
-    </a>
+    <await(getPokemonList)>
+      <@placeholder>
+        <div>Loading</div>
+      </@placeholder>
+      <@then|pokemons|>
+        <div class="grid-container">
+          <for|pokemon| of=pokemons>
+            <pokemon-card name=pokemon.name id=pokemon.id url=pokemon.url imageUrl=pokemon.imageUrl types=pokemon.types>
+              <cart-button id=pokemon.id name=pokemon.name />
+            </pokemon-card>
+          </for>
+        </div>
+      </@then>
+    </await>
   </main>
 </div>
-<mouse-mask/>
-
 style {
+  .grid-container {
+    display: block;
+    margin: auto;
+  }
   .container {
-    display:flex;
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-size: clamp(1em, 2vw, 2em); 
+    font-size: clamp(1em, 2vw, 2em);
     padding: 1em;
     box-sizing: border-box;
-    height:100%;
-    width:100%;
+    width: 100%;
   }
   img.logo {
-    width:12em;
+    width: 12em;
   }
+  @media (min-width: 640px) {
+		.container {
+			padding: 6rem;
+		}
+		.grid-container {
+			display: grid;
+			grid-template-columns: repeat(2, minmax(0, 1fr))
+		}
+	}
+  @media (min-width: 1024px) {
+		.grid-container {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+			margin-bottom: 0;
+		}
+	}
+	@media (min-width: 1280px) {
+		.grid-container {
+			grid-template-columns: repeat(4, minmax(0, 1fr));
+			max-width: 112rem;
+		}
+	}
 }

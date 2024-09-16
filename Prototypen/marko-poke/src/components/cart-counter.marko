@@ -1,0 +1,32 @@
+import { cartItems, cartItemsCount, cartItemsSum } from '../store'
+
+class {
+    onCreate() {
+        this.state = {
+            cart: null,
+            count: 0,
+            sum: 0
+        };
+    }
+
+    onMount() {
+        this.state.cart = cartItems
+        this.state.count = cartItemsCount()
+        this.state.sum = cartItemsSum()
+
+        window.addEventListener('cart-item-count-update', (event) => {
+            this.state.count = event.detail.count
+        })
+
+        window.addEventListener('cart-item-sum-update', (event) => {
+            this.state.sum = event.detail.sum
+        })
+    }
+}
+
+$ const itemText = state.sum === 1 ? 'item' : 'items'
+$ const text = input.includeText ? `${state.sum} ${itemText}` : state.sum
+
+<span>
+    ${text}
+</span>

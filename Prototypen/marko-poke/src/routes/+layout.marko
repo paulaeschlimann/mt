@@ -11,9 +11,15 @@
   <header>
     <nav class="topnav">
       <ul>
-        <li><a href="/">Poke</a></li>
-        <li><a href="/list">List</a></li>
-        <li><a href="/cart">Cart</a></li>
+        <li>
+          <a href="/">Pokemons</a>
+        </li>
+        <li>
+          <a href="/cart">
+            Cart: 
+            <cart-counter />
+          </a>
+        </li>
       </ul>
   </nav>
   </header>
@@ -32,10 +38,19 @@ style {
   a {
     color: rgb(0, 84, 112);
   }
-
+  header {
+    max-width: 1600px;
+    margin: auto;
+		background-color: aliceblue;
+  }
+  ul {
+    margin: 0;
+    overflow: hidden;
+    line-height: 3rem;
+  }
   .topnav a {
     text-decoration: none;
-    padding: 2rem 3rem;
+    padding: 1rem 3rem;
   }
 
   .topnav a:hover {
@@ -48,6 +63,6 @@ style {
   }
 
   .topnav li {
-    display: inline;
+    float: left;
   }
 }
